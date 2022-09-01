@@ -125,7 +125,8 @@ watch(
   flex-direction: column;
   width: 240px;
   background-color: white;
-  border-right: 1px solid black;
+  border: solid black;
+  border-width: 1px 1px 1px 0;
   text-transform: uppercase;
   transition: all 1s ease-in-out;
   -webkit-transition: all 1s ease-in-out;

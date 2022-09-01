@@ -47,7 +47,8 @@ const menuItems = reactive<MenuItems[]>([
   position: relative;
   display: flex;
   width: 100%;
-  border-bottom: 1px solid black;
+  border: solid black;
+  border-width: 1px 0;
 }
 
 .top-nav .main {
