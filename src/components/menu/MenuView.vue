@@ -1,6 +1,6 @@
 <template>
   <nav class="menu-wrapper">
-    <span class="menu-toggle" @mouseover="menuActive = false">MENU</span>
+    <span class="menu-toggle cursor-pointer" @mouseover="menuActive = false">MENU</span>
     <div>
       <div class="menu">
         <div
@@ -47,7 +47,14 @@
               </svg>
               <span>Back</span>
             </div>
-            <div class="menu-item" v-for="sub in item.children" :key="sub.name">{{ sub.name }}</div>
+            <router-link
+              :to="`/collections/${sub.path}`"
+              class="menu-item"
+              v-for="sub in item.children"
+              :key="sub.name"
+            >
+              {{ sub.name }}
+            </router-link>
           </div>
         </div>
       </div>
@@ -70,6 +77,7 @@ withDefaults(defineProps<Props>(), {
       children: [
         {
           name: 'SubMenu Item',
+          path: '',
         },
       ],
     },
@@ -104,35 +112,36 @@ watch(
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 2px;
-  cursor: pointer;
 }
 
 .menu-wrapper:hover .menu {
   left: 0;
+  /* transition: all 0.4s ease; */
 }
 
 .menu-wrapper .menu > .menu-item:hover .sub-menu.sub-menu-active {
   left: 0;
+  /* transition: all 0.4s ease; */
 }
 
 .menu,
 .sub-menu {
   position: fixed;
-  top: 50px;
+  top: 53px;
   left: -100%;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 53px);
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 300px;
   background-color: white;
   border: solid black;
   border-width: 1px 1px 1px 0;
   text-transform: uppercase;
-  transition: all 1s ease-in-out;
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
 }
 
 .menu {
@@ -147,8 +156,9 @@ watch(
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 17.5px 24px;
   color: black;
+  text-decoration: none;
   background-color: white;
   border-bottom: 1px solid black;
 }

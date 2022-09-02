@@ -18,7 +18,7 @@ const router = createRouter({
       component: () => import('@/views/AboutView.vue'),
     },
     {
-      path: '/collections',
+      path: '/collections/:slug',
       name: 'collections',
       component: () => import('@/views/pages/collections-home.vue'),
     },

@@ -1,11 +1,15 @@
 <template>
-  <div class="collection-view">
-    <CardView v-for="x in 17" :key="x" />
+  <div>
+    <OptionNav />
+    <div class="collection-view">
+      <CardView v-for="x in 17" :key="x" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import CardView from '@/components/CardView.vue';
+import OptionNav from '@/components/nav/OptionsNav.vue';
 </script>
 
 <style scoped>
@@ -14,6 +18,5 @@ import CardView from '@/components/CardView.vue';
   flex-wrap: wrap;
   /* flex-shrink: 0; */
   /* flex-grow: 1; */
-  background-color: #0047ae;
 }
 </style>

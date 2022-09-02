@@ -16,7 +16,7 @@ type Store = {
   collections: Collection[];
 };
 
-export const useCollectionsStore = defineStore('main', {
+export const useCollectionsStore = defineStore('collections', {
   state: (): Store => ({
     collections: [],
   }),
@@ -26,7 +26,7 @@ export const useCollectionsStore = defineStore('main', {
   actions: {
     async getCollections() {
       const store = useSharedStore();
-      const endpoint = 'user/v1/sales_channels/website/collections';
+      const endpoint = 'sales_channels/website/collections';
 
       store.loading();
 

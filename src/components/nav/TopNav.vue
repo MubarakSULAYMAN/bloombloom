@@ -9,30 +9,36 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { computed } from 'vue';
 import MenuView from '@/components/menu/MenuView.vue';
 import type { MenuItems } from '@/types/index';
+import { useCollectionsStore } from '@/stores/collections';
+import groupBy from 'lodash.groupby';
 
-const menuItems = reactive<MenuItems[]>([
-  {
-    name: 'spectacles',
-    children: [
-      {
-        name: 'Women',
-      },
-      {
-        name: 'Men',
-      },
-    ],
-  },
-  {
-    name: 'sunglasses',
-    children: [
-      {
-        name: 'Empty',
-      },
-    ],
-  },
+const store = useCollectionsStore();
+store.getCollections();
+
+const collections = computed(() => store.collections);
+const grouped = computed(() =>
+  groupBy(collections.value, (collection) => collection.name.split(' ')[1])
+);
+const collectionMenu = computed(() => {
+  const formattedMenu = Object.entries(grouped.value).map(([key, values]) => {
+    return {
+      name: key.toLowerCase(),
+      children: values.map((value) => ({
+        name: value.name.split(' ')[0],
+        path: value.configuration_name,
+      })),
+    };
+  });
+
+  return formattedMenu.sort((a, b) => (b.name > a.name ? 1 : a.name > b.name ? -1 : 0));
+});
+
+// const menuItems = reactive<MenuItems[]>([
+const menuItems = computed<MenuItems[]>(() => [
+  ...collectionMenu.value,
   {
     name: 'Home try on',
   },
@@ -44,7 +50,6 @@ const menuItems = reactive<MenuItems[]>([
 
 <style scoped>
 .top-nav {
-  position: relative;
   display: flex;
   width: 100%;
   border: solid black;

@@ -2,7 +2,6 @@
   <div class="app-wrapper">
     <div class="nav-group">
       <TopNav />
-      <OptionNav />
     </div>
     <RouterView />
   </div>
@@ -10,7 +9,6 @@
 
 <script setup lang="ts">
 import TopNav from '@/components/nav/TopNav.vue';
-import OptionNav from '@/components/nav/OptionsNav.vue';
 </script>
 
 <style scoped>

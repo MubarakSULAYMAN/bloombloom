@@ -1,11 +1,13 @@
 <template>
   <div class="card-view">
-    <div class="collection-item-name">
+    <div class="collection-item-name text-uppercase">
       <span class="glass-name">glass-name</span>
       <span class="variant-name">glass-name</span>
     </div>
 
     <img class="glass-image" scr="https://picsum.photos/300/200" alt="Free unsplash image" />
+    <span class="button-left"></span>
+    <span class="button-right"></span>
   </div>
 </template>
 
@@ -28,12 +30,12 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
-  text-transform: uppercase;
   transform: translateX(-50%);
+  z-index: 2;
 }
 
 .glass-name {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .variant-name {
@@ -44,5 +46,25 @@
   width: 100%;
   height: 100%;
   /* object-fit: fill; */
+}
+
+.card-view [class^='button-'] {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  display: inline-block;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.button-left {
+  left: 0;
+  cursor: url('@/assets/images/icon/arrow-left.svg'), auto;
+}
+
+.button-right {
+  right: 0;
+  cursor: url('@/assets/images/icon/arrow-right.svg'), auto;
 }
 </style>

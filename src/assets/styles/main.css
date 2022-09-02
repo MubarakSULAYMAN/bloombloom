@@ -1,1 +1,9 @@
-@import "./base.css";
+@import './base.css';
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
