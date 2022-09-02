@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
+import RouteEntry from '@/components/RouteEntry.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,9 +19,22 @@ const router = createRouter({
       component: () => import('@/views/AboutView.vue'),
     },
     {
-      path: '/collections/:slug',
+      path: '/collections',
       name: 'collections',
-      component: () => import('@/views/pages/collections-home.vue'),
+      component: RouteEntry,
+      children: [
+        {
+          path: '',
+          name: 'collections.index',
+          // redirect: { name: 'collections.type' },
+          redirect: { path: 'collections/spectacles-women' },
+        },
+        {
+          path: '/collections/:slug',
+          name: 'collections.type',
+          component: () => import('@/views/pages/collections-home.vue'),
+        },
+      ],
     },
     {
       path: '/:pathMatch(.*)*',
