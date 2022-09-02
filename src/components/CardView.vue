@@ -60,11 +60,11 @@
 
 .button-left {
   left: 0;
-  cursor: url('@/assets/images/icon/arrow-left.svg'), auto;
+  cursor: url('@/assets/images/icon/arrow-left.svg') 16 16, auto;
 }
 
 .button-right {
   right: 0;
-  cursor: url('@/assets/images/icon/arrow-right.svg'), auto;
+  cursor: url('@/assets/images/icon/arrow-right.svg') 16 16, auto;
 }
 </style>

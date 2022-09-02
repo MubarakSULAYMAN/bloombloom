@@ -27,9 +27,7 @@
             ></path>
           </svg>
 
-          <div
-            :class="['sub-menu', { 'sub-menu-active': !!menuActive && !!item.children?.length }]"
-          >
+          <div :class="['sub-menu', { 'sub-menu-active': menuActive && item.children?.length }]">
             <div class="menu-item back-button" tabindex="0" @click.stop="menuActive = false">
               <svg
                 width="11"
@@ -86,12 +84,12 @@ withDefaults(defineProps<Props>(), {
 
 const openedSubMenu = ref<MenuItem[] | undefined>(undefined);
 const menuActive = ref<boolean>(false);
-const showSubMenu = computed(() => !!openedSubMenu.value?.length && menuActive.value);
+const showSubMenu = computed(() => openedSubMenu.value?.length && menuActive.value);
 
 watch(
   () => showSubMenu.value,
   (newValue, oldValue) => {
-    if (!newValue && !!oldValue) {
+    if (!newValue && oldValue) {
       openedSubMenu.value = undefined;
     }
   }
