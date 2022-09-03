@@ -1,15 +1,38 @@
 <template>
   <div class="card-view">
     <div class="collection-item-name text-uppercase">
-      <span class="glass-name">glass-name</span>
-      <span class="variant-name">glass-name</span>
+      <span class="glass-name">{{ glassCollection.name }}</span>
+      <span class="variant-name">{{ glassCollection.glass_variants[0]?.frame_variant.name }}</span>
     </div>
 
-    <img class="glass-image" scr="https://picsum.photos/300/200" alt="Free unsplash image" />
+    <img
+      class="glass-image"
+      :src="glassCollection.glass_variants[0]?.media[0]?.url"
+      :alt="glassCollection.glass_variants[0]?.media[0]?.original_file_name"
+    />
+    <!-- glassCollection.glass_variants[0].frame_variant?.colour.media[0].url -->
     <span class="button-left"></span>
     <span class="button-right"></span>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { Glasses } from '@/types/index';
+
+interface Props {
+  glassCollection: Glasses;
+}
+
+defineProps<Props>();
+
+// withDefaults(defineProps<Props>(), {
+//   glassCollection: () => {},
+// });
+
+// defineEmits<{
+//   (e: 'click'): void;
+// }>();
+</script>
 
 <style scoped>
 .card-view {
@@ -17,6 +40,7 @@
   /* width: calc(100% / 3); */
   height: 340px;
   border-bottom: 1px solid black;
+  overflow: hidden;
 }
 
 /* .card-view:not(:nth-child(3n)) {

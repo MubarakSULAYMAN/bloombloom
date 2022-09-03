@@ -16,9 +16,9 @@ import { useCollectionsStore } from '@/stores/collections';
 import groupBy from 'lodash.groupby';
 
 const store = useCollectionsStore();
-store.getCollections();
+store.getCollectionMenu();
 
-const collections = computed(() => store.collections);
+const collections = computed(() => store.collectionMenu);
 const grouped = computed(() =>
   groupBy(collections.value, (collection) => collection.name.split(' ')[1])
 );

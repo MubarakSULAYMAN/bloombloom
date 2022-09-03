@@ -75,12 +75,14 @@
 import { computed, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import { useSharedStore } from '@/stores/shared';
+import { useCollectionsStore } from '@/stores/collections';
 import BaseFilter from '@/components/filter/BaseFilter.vue';
 import FilterItem from '@/components/filter/FilterItem.vue';
 
 const route = useRoute();
 const router = useRouter();
 const store = useSharedStore();
+const collectionsStore = useCollectionsStore();
 const pageTitle = computed(() => store.pageTitle);
 const isFilter = ref<boolean>(false);
 const filters = reactive<{ colours: string[]; shapes: string[] }>({
@@ -259,7 +261,7 @@ watch(
   }
 );
 
-const resultCount = ref<number>(0);
+const resultCount = computed(() => collectionsStore.glassesCount);
 </script>
 
 <style scoped>

@@ -174,7 +174,7 @@ watch(
 @media (max-width: 499px) {
   .menu,
   .sub-menu {
-    width: 100%;;
+    width: 100%;
   }
 }
 </style>
