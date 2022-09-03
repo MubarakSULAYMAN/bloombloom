@@ -14,14 +14,14 @@
 <style scoped>
 .card-view {
   position: relative;
-  width: calc(100% / 3);
-  height: 500px;
+  /* width: calc(100% / 3); */
+  height: 340px;
   border-bottom: 1px solid black;
 }
 
-.card-view:not(:nth-child(3n)) {
+/* .card-view:not(:nth-child(3n)) {
   border-right: 1px solid black;
-}
+} */
 
 .card-view .collection-item-name {
   position: absolute;
@@ -66,5 +66,37 @@
 .button-right {
   right: 0;
   cursor: url('@/assets/images/icon/arrow-right.svg') 16 16, auto;
+}
+
+@media (min-width: 1319px) {
+  .card-view {
+    width: calc(100% / 3);
+  }
+
+  .card-view:not(:nth-child(3n)) {
+    border-right: 1px solid black;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1318px) {
+  .card-view {
+    width: calc(100% / 2);
+  }
+
+  .card-view:not(:nth-child(even)) {
+    border-right: 1px solid black;
+  }
+}
+
+@media (max-width: 719px) {
+  .card-view {
+    width: 100%;
+  }
+}
+
+@media (max-width: 425px) {
+  .card-view {
+    height: 300px;
+  }
 }
 </style>

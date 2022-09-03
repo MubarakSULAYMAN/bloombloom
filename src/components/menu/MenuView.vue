@@ -131,6 +131,7 @@ watch(
   display: flex;
   flex-direction: column;
   width: 300px;
+  font-weight: 600;
   background-color: white;
   border: solid black;
   border-width: 1px 1px 1px 0;
@@ -168,5 +169,12 @@ watch(
   color: white;
   background-color: black;
   cursor: pointer;
+}
+
+@media (max-width: 499px) {
+  .menu,
+  .sub-menu {
+    width: 100%;;
+  }
 }
 </style>
