@@ -44,11 +44,11 @@
         <div class="filter-items" v-if="activeFilters.length">
           <TransitionGroup name="fade">
             <FilterItem
-              v-for="(item, index) in activeFilters"
+              v-for="item in activeFilters"
               :key="item"
               :title="item"
               class="filter-item"
-              @click="removeFilter(item, index)"
+              @click="removeFilter(item)"
             />
           </TransitionGroup>
         </div>
@@ -92,25 +92,62 @@ const shapeFilters = ref<string[]>([]);
 const activeFilters = computed(() => [...colourFilters.value, ...shapeFilters.value]);
 
 function addFilter(item: string) {
-  if (activeFilters.value.includes(item)) return;
+  if (activeFilters.value.includes(item) || !item.length) return;
+
+  const newQuery: Record<string, string> = {};
+  console.log(shapeFilters.value.length);
 
   if (filters.colours.includes(item)) {
     colourFilters.value.push(item);
+    newQuery.colour = arrayToString(colourFilters.value);
+
+    if (shapeFilters.value.length) {
+      newQuery.shape = arrayToString(shapeFilters.value);
+    }
   }
 
   if (filters.shapes.includes(item)) {
+    if (colourFilters.value.length) {
+      newQuery.colour = arrayToString(colourFilters.value);
+    }
+
     shapeFilters.value.push(item);
+    newQuery.shape = arrayToString(shapeFilters.value);
   }
+
+  router.push({ query: newQuery });
 }
 
-function removeFilter(item: string, index: number) {
-  if (filters.colours.includes(item)) {
-    colourFilters.value.splice(index, 1);
-  }
+// eslint-disable-next-line
+function removeFilter(item: any) {
+  const newQuery: Record<string, string> = {};
 
-  if (filters.shapes.includes(item)) {
-    shapeFilters.value.splice(index, 1);
+  // if (colourFilters.value.length) {
+  if (colourFilters.value.includes(item)) {
+    const index = colourFilters.value.findIndex((element) => element === item);
+    colourFilters.value.splice(index, 1);
+    newQuery.colour = arrayToString(colourFilters.value);
+
+    if (shapeFilters.value.length) {
+      newQuery.shape = arrayToString(shapeFilters.value);
+    }
   }
+  // } else delete newQuery.colour;
+
+  // if (shapeFilters.value.length) {
+  if (shapeFilters.value.includes(item)) {
+    const index = shapeFilters.value.findIndex((element) => element === item);
+
+    if (colourFilters.value.length) {
+      newQuery.colour = arrayToString(colourFilters.value);
+    }
+
+    shapeFilters.value.splice(index, 1);
+    newQuery.shape = arrayToString(shapeFilters.value);
+  }
+  // } else delete newQuery.shapes;
+
+  router.push({ query: newQuery });
 }
 
 interface Query {
@@ -134,16 +171,42 @@ if (shapeFilters.value.length) {
 const routeQuery = computed(() => route.query);
 
 // eslint-disable-next-line
+function removeEmptyStrings(arr: any[]) {
+  // eslint-disable-next-line
+  const results: any[] = [];
+
+  arr
+    .filter((e) => e != null)
+    .forEach((element) => {
+      if (element !== '') {
+        results.push(element);
+      }
+    });
+
+  return results;
+}
+
+// eslint-disable-next-line
 function generateFilters(obj: any) {
   for (const item in obj) {
     switch (item) {
-      case 'colour':
-        colourFilters.value = stringToArray(obj[item]);
-        break;
+      case 'colour': {
+        const arr = removeEmptyStrings(stringToArray(obj[item]));
 
-      case 'shape':
-        shapeFilters.value = stringToArray(obj[item]);
+        if (arr.length) {
+          colourFilters.value = arr;
+        }
         break;
+      }
+
+      case 'shape': {
+        const arr = removeEmptyStrings(stringToArray(obj[item]));
+
+        if (arr.length) {
+          shapeFilters.value = arr;
+        }
+        break;
+      }
 
       default:
         break;
@@ -160,39 +223,42 @@ watch(
   }
 );
 
+const replaceQuery = (key: string) => {
+  const query = Object.assign({}, route.query);
+  delete query[key];
+  router.replace({ query });
+};
+
+if (!colourFilters.value.length) {
+  replaceQuery('colour');
+}
+
+if (!shapeFilters.value.length) {
+  replaceQuery('shape');
+}
+
 watch(
   () => colourFilters.value.length,
   (newValue) => {
-    const newQuery: Record<string, string> = {};
-
-    if (newValue) {
-      newQuery.colour = arrayToString(colourFilters.value);
+    if (!newValue) {
+      replaceQuery('colour');
     }
 
-    if (shapeFilters.value.length) {
-      newQuery.shape = arrayToString(shapeFilters.value);
-    }
-
-    router.push({ query: newQuery });
+    colourFilters.value.filter((e) => e != null);
   }
 );
 
 watch(
   () => shapeFilters.value.length,
   (newValue) => {
-    const newQuery: Record<string, string> = {};
-
-    if (newValue) {
-      newQuery.shape = arrayToString(shapeFilters.value);
+    if (!newValue) {
+      replaceQuery('shape');
     }
 
-    if (shapeFilters.value.length) {
-      newQuery.colour = arrayToString(colourFilters.value);
-    }
-
-    router.push({ query: newQuery });
+    shapeFilters.value.filter((e) => e != null);
   }
 );
+
 const resultCount = ref<number>(0);
 </script>
 
