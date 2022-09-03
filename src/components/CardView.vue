@@ -54,6 +54,8 @@ defineProps<Props>();
   display: flex;
   justify-content: center;
   align-items: baseline;
+  width: 100%;
+  padding: 0 20px;
   transform: translateX(-50%);
   z-index: 2;
 }
