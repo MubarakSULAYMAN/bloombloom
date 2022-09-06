@@ -160,6 +160,10 @@ const nextMedia = (arrLength: number) => {
   z-index: 1;
 }
 
+.card-view [class^='button-']:focus {
+  outline: none;
+}
+
 .button-left {
   left: 0;
   cursor: url('@/assets/images/icon/arrow-left.svg') 16 16, auto;
@@ -220,22 +224,9 @@ const nextMedia = (arrLength: number) => {
   }
 
   .card-view [class^='button-'] {
-    top: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    transform: translateX(50%);
-  }
-
-  .card-view [class^='button-']:focus {
-    outline: none;
-  }
-
-  .card-view .button-right {
-    transform: translateX(-50%);
   }
 
   .card-view [class^='button-'] svg {

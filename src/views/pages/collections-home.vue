@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="glass_collection">
     <OptionNav />
     <!-- <TheLoader :is-loading="isLoading"> -->
     <p class="message" v-if="isLoading">Kindly wait while we get you some glasses...</p>
@@ -22,7 +22,7 @@ import OptionNav from '@/components/nav/OptionsNav.vue';
 import { useRoute } from 'vue-router';
 import { useCollectionsStore } from '@/stores/collections';
 import { useSharedStore } from '@/stores/shared';
-import { computed, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 const route = useRoute();
 // const router = useRouter();
@@ -63,6 +63,11 @@ if (!(Object.keys(route.query).length === 0 && route.query.constructor === Objec
 } else store.getCollections(currentSlug.value);
 
 const glasses = computed(() => store.glasses);
+// eslint-disable-next-line
+const glass_collection = ref<any | null>(null);
+onMounted(() => {
+  glass_collection.value.focus();
+});
 
 watch(
   () => currentSlug.value,
