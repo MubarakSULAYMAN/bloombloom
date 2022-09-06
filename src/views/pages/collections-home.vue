@@ -3,7 +3,7 @@
     <OptionNav />
     <!-- <TheLoader :is-loading="isLoading"> -->
     <p class="message" v-if="isLoading">Kindly wait while we get you some glasses...</p>
-    <p class="message" v-if="!isLoading && !glasses.length">Unable to retrieve an item.</p>
+    <!-- <p class="message" v-if="!isLoading && !glasses.length">Unable to retrieve an item.</p> -->
     <div class="collection-view" v-else>
       <CardView
         v-for="glassCollection in glasses"
