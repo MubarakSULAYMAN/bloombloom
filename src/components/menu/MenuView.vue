@@ -62,6 +62,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import type { MenuItem, MenuItems } from '@/types/index';
 
 interface Props {
@@ -82,6 +83,7 @@ withDefaults(defineProps<Props>(), {
   ],
 });
 
+const route = useRoute();
 const openedSubMenu = ref<MenuItem[] | undefined>(undefined);
 const menuActive = ref<boolean>(false);
 const showSubMenu = computed(() => openedSubMenu.value?.length && menuActive.value);
@@ -92,6 +94,16 @@ watch(
     if (!newValue && oldValue) {
       openedSubMenu.value = undefined;
     }
+  }
+);
+
+const currentSlug = computed(() => route.params.slug as string);
+
+watch(
+  () => currentSlug.value,
+  // eslint-disable-next-line
+  (_) => {
+    menuActive.value = false;
   }
 );
 </script>

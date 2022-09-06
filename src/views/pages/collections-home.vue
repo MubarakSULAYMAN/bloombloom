@@ -68,7 +68,7 @@ watch(
   () => currentSlug.value,
   (newValue) => {
     store.getCollections(newValue);
-    updatePageTitle;
+    updatePageTitle();
   }
 );
 
