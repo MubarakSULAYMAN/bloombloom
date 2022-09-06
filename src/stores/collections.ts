@@ -13,13 +13,13 @@ type CollectionMenuResponse = {
   collections: CollectionMenu[];
 };
 
-type MetaData = {
-  total_count: number;
-};
+// type MetaData = {
+//   total_count: number;
+// };
 
 type GlassesResponse = {
   glasses: Glasses[];
-  meta: MetaData;
+  // meta: MetaData;
 };
 
 type Store = {
@@ -42,7 +42,7 @@ export const useCollectionsStore = defineStore('collections', {
       const store = useSharedStore();
       const endpoint = 'sales_channels/website/collections';
 
-      store.loading();
+      // store.loading();
 
       try {
         const { data }: { data: CollectionMenuResponse } = await axios.get(endpoint);
@@ -56,28 +56,24 @@ export const useCollectionsStore = defineStore('collections', {
         this.collectionMenu = [];
 
         store.setError(error);
-      } finally {
-        store.done();
       }
+      // finally {
+      //   store.done();
+      // }
     },
 
     // eslint-disable-next-line
     async getCollections(slug: string, queryParams?: any) {
-      console.log('helllo');
       const store = useSharedStore();
       const endpoint = `sales_channels/website/collections/${slug}/glasses`;
-
-      store.loading();
 
       try {
         const { data }: { data: GlassesResponse } = await axios.get(endpoint, {
           params: queryParams,
         });
 
-        console.log(data);
-
         this.glasses = data.glasses;
-        this.glassesCount = data.meta.total_count;
+        this.glassesCount = data.glasses.length;
 
         if (store.error) {
           store.clearError();

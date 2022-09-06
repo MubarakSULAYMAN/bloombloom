@@ -1,7 +1,9 @@
 <template>
   <div>
     <OptionNav />
-    <p v-if="!glasses.length">List might be empty</p>
+    <!-- <TheLoader :is-loading="isLoading"> -->
+    <p class="message" v-if="isLoading">Kindly wait while we get you some glasses...</p>
+    <p class="message" v-if="!isLoading && !glasses.length">Unable to retrieve an item.</p>
     <div class="collection-view" v-else>
       <CardView
         v-for="glassCollection in glasses"
@@ -9,23 +11,26 @@
         :glassCollection="glassCollection"
       />
     </div>
+    <!-- </TheLoader> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import CardView from '@/components/CardView.vue';
 import OptionNav from '@/components/nav/OptionsNav.vue';
-import { useRoute, useRouter } from 'vue-router';
+// import TheLoader from '@/components/TheLoader.vue';
+import { useRoute } from 'vue-router';
 import { useCollectionsStore } from '@/stores/collections';
 import { useSharedStore } from '@/stores/shared';
 import { computed, watch } from 'vue';
 
 const route = useRoute();
-const router = useRouter();
+// const router = useRouter();
 const store = useCollectionsStore();
 const sharedStore = useSharedStore();
 
-console.log(route.params.slug);
+const isLoading = computed(() => sharedStore.isLoading);
+
 const currentSlug = computed(() => route.params.slug as string);
 
 function updatePageTitle() {
@@ -67,6 +72,10 @@ watch(
   }
 );
 
+// if (JSON.stringify(newValue) !== JSON.stringify(oldValue) && !empty) {
+//           fetchConsumableProductsOrder()
+//         }
+
 watch(
   () => route.query,
   (newValue) => {
@@ -84,5 +93,10 @@ watch(
   flex-wrap: wrap;
   /* flex-shrink: 0; */
   /* flex-grow: 1; */
+  border-bottom: 1px solid black;
+}
+
+.message {
+  padding: 20px;
 }
 </style>

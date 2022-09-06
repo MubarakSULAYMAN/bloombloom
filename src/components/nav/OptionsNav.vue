@@ -97,7 +97,6 @@ function addFilter(item: string) {
   if (activeFilters.value.includes(item) || !item.length) return;
 
   const newQuery: Record<string, string> = {};
-  console.log(shapeFilters.value.length);
 
   if (filters.colours.includes(item)) {
     colourFilters.value.push(item);
