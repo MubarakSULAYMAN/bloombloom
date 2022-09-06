@@ -62,7 +62,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useSharedStore } from '@/stores/shared';
 import type { MenuItem, MenuItems } from '@/types/index';
 
 interface Props {
@@ -83,7 +83,7 @@ withDefaults(defineProps<Props>(), {
   ],
 });
 
-const route = useRoute();
+const store = useSharedStore();
 const openedSubMenu = ref<MenuItem[] | undefined>(undefined);
 const menuActive = ref<boolean>(false);
 const showSubMenu = computed(() => openedSubMenu.value?.length && menuActive.value);
@@ -97,12 +97,12 @@ watch(
   }
 );
 
-const currentSlug = computed(() => route.params.slug as string);
+const pageTitle = computed(() => store.pageTitle);
 
 watch(
-  () => currentSlug.value,
+  () => pageTitle.value,
   // eslint-disable-next-line
-  (_) => {
+  (_newValue) => {
     menuActive.value = false;
   }
 );

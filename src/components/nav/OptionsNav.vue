@@ -59,7 +59,9 @@
             class="cursor-pointer text-uppercase"
             @click="
               colourFilters.length = 0;
+              colourFilters = [];
               shapeFilters.length = 0;
+              shapeFilters = [];
             "
           >
             Clear filters
@@ -402,5 +404,40 @@ const resultCount = computed(() => collectionsStore.glassesCount);
 
 .slide-fade-leave-to {
   transform: translateY(5px);
+}
+
+@media (max-width: 425px) {
+  .options-nav {
+    justify-content: space-between;
+    /* flex-direction: column; */
+    /* background-color: red; */
+  }
+
+  .option-item:first-child {
+    display: none;
+  }
+
+  .option-item:nth-child(2) {
+    width: 70%;
+  }
+  .option-item:nth-child(3) {
+    width: 30%;
+  }
+
+  .filter-info {
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: flex-start;
+  }
+
+  .filter-items,
+  .result-count,
+  .clear-filters {
+    width: 100%;
+  }
+
+  .clear-filters {
+    justify-content: center;
+  }
 }
 </style>

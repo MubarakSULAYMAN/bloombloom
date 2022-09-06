@@ -72,6 +72,14 @@ watch(
   }
 );
 
+watch(
+  () => isLoading.value,
+  // eslint-disable-next-line
+  (_) => {
+    updatePageTitle();
+  }
+);
+
 // if (JSON.stringify(newValue) !== JSON.stringify(oldValue) && !empty) {
 //           fetchConsumableProductsOrder()
 //         }

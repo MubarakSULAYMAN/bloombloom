@@ -230,6 +230,10 @@ const nextMedia = (arrLength: number) => {
     transform: translateX(50%);
   }
 
+  .card-view [class^='button-']:focus {
+    outline: none;
+  }
+
   .card-view .button-right {
     transform: translateX(-50%);
   }
