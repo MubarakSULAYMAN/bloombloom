@@ -3,8 +3,9 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-router.push({ name: 'collections' });
+onMounted(() => router.push({ name: 'collections' }));
 </script>
